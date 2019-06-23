@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单模版</title>
+	<script src="/static/3rd/jquery-1.11.3.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/3rd/bootstrap.css">
+	<script src="/static/3rd/layer-v3.1.1/layer/layer.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/3rd/layer-v3.1.1/layer/theme/default/layer.css">
+	<script src="/static/3rd/sha1.min.js"></script>
+    <link rel="shortcut icon" href="static/image/favicon.ico">
+	<script type="text/javascript">
+		//处理表单函数，可以单独放到一个js文件中，然后引用。
+		//针对passwd密码字段做了特殊处理，使用sha1加密
+		function form(url, method, data){
+			var index = layer.load(1, {
+			  shade: [0.1,'green'],
+			  time: 3000
+			});
+
+			if (method == "get"){
+				$.get(url).success(function(data){
+					return {data: data};
+				}).error(function(data) {
+					return {data: data};
+				});
+			}
+
+			if (method == "post"){
+				if ("passwd" in data){
+					data.passwd = CryptoJS.SHA1(data.passwd.toString()).toString(); //需要了解一下sha1加密特点，加密后长度
+				}
+				$.post(url, data).success(function(data){
+					return {data: data};
+				}).error(function(data) {
+					return {data: data};
+				});
+			}
+		}
+	</script>
+</head>
+<body>
+	<!--中央大标题，或者放置导航 -->
+	<div>
+		<h1 style="height: 100px;text-align: center;">不适合使用背景的标题</h1>
+	</div>
+	<!-- 左侧竖列，可以导航，目录 -->
+	<div class="col-sm-2">
+		<p>left content</p>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+	<!-- 中心功能区，可以重要内容展示 -->
+	<div class="col-sm-8" style="height: 1200px;">
+		<p>
+			就是一些文本，测试是否可以加在这里
+		</p>
+		<!-- <form> -->
+		<dl style="margin-top: 100px;">
+			<dd>
+				<label for="name">用户名</label>
+				<input name="name" class="form-control" type="text" placeholder="请输入您的用户名">
+			</dd>
+
+			<dd>
+				<label for="passwd">密码</label>
+				<input name="passwd" class="form-control" type="password" placeholder="请输入您的用密码">
+			</dd>
+
+			<dd>
+				<input id="submit" type="submit" value="提交" class="btn btn-default">
+			</dd>
+		</dl>
+		<!-- </form> -->
+	</div>
+	<!-- 右侧功能，可以是一些评论等 -->
+	<div class="col-sm-2">
+		<p>right content</p>
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	<div>
+		<!-- 底部固定区，可以放置版权声明等 -->
+ 	<footer class="footer navbar-fixed-bottom">
+	    <div class="container">
+	    	<h2 style="text-align: center;">不适合使用背景的footer</h2>
+	    </div>
+	</footer>
+		<!-- 表单定制处理，调用之前定义的form函数，处理提交表单之后的功能 -->
+	<script type="text/javascript">
+		$("#submit").unbind("click").click(function submit() {
+			var name = $("input[name=name]").val().trim().toLocaleLowerCase();
+			var passwd = $("input[name=passwd]").val().trim();
+			form("/abc","post",{name: name, passwd: passwd});
+		})
+	</script>
+</body>
+</html>

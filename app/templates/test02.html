@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>登录页</title>
+    <link rel="stylesheet" href="/static/3rd/css/bootstrap3.2.0.min.css">
+    <link rel="stylesheet" href="/static/3rd/layui-v2.4.5/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="shortcut icon" href="/static/image/favicon.png">
+    <script src="/static/3rd/js/jquery-1.11.3.min.js"></script>
+    <script src="/static/3rd/layui-v2.4.5/layui/layui.js"></script>
+    <script src="/static/js/submit_form.js"></script>
+</head>
+<body>
+
+<div class="login-main">
+    <header class="layui-elip">登录</header>
+    <form class="layui-form">
+        <div class="layui-input-inline">
+            <input type="text" name="account" required lay-verify="required" placeholder="用户名" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="密码" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline login-btn">
+            <button lay-submit lay-filter="login" class="layui-btn">登录</button>
+            <!-- lay-submit使用layui提交，button中的lay-submit是必须要加的 form加layui-form -->
+        </div>
+        <hr/>
+        <p><a href="register.html" class="fl">立即注册</a><a href="javascript:;" class="fr">忘记密码？</a></p>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function send_data(data){
+        if(data.success == 1){
+            layer.msg("成功");
+        }
+    }
+
+    layui.use(['form','layer','jquery'], function () {
+        // 操作对象
+        var form = layui.form;
+        var $ = layui.jquery;
+        form.on('submit(login)',function (data) {
+            url = "/test02";
+            method = "get";
+            ajax_form_submit(url, method, send_data);
+            // 提示信息
+            // layer.msg('登录失败');
+
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+#search-logo-img { line-height: 60px; }
+#nav-head {
+  background: #364653;
+  line-height: 60px;
+}
+
+.float_right {
+  float: right;
+  line-height: 60px;
+}
+
+.float_right > a {
+  margin: 20px;
+  text-decoration: none;
+}
+
+input[name=q] {
+  border-radius: 10px 0px 0px 10px;
+  border-width: 0;
+  border-color: white;
+  line-height: 30px;
+  margin-top: 15px;
+}
+
+input[name=q] + button {
+  border-width: 0;
+  background: green;
+  border-radius: 0 10px 10px 0;
+  line-height: 30px;
+  margin-top: 15px;
+  padding-bottom: 1px;
+}
+
+#nav {
+  margin-top: 25px;
+  width: 80%;
+  text-align: center;
+  line-height: 80%;
+}
+#nav > a {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+}
+#nav > a > img {
+  margin-bottom: 10px;
+}
+
+#nav > a:hover {
+  color:#A9CEAB;
+}
+
+.linking span {
+  color: #A9CEAB;
+  font-weight: normal;
+}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+    <style>
+        .book-box {
+            border:solid 1px;
+            display: inline-block;
+            width: 324px;
+            height: 168px;
+            margin-top: 35px;
+            margin-bottom: 25px;
+        }
+        .book-box>img {
+            height: 166px;
+            width:111px;
+            display: inline-block;
+            position: relative;
+            top:-15px;
+            box-shadow: 0 5px 9.5px 0.5px rgba(184, 187, 192, 0.75);
+        }
+        img+div {
+            display: inline;
+            float: right;
+        }
+    </style>
+
+
+<div class="container">
+    <div class="row">
+        {% for book in books %}
+            <a  style="color:black" href="/book/{{ book.isbn }}/detail">
+            <div class="col-xs-3 col-xs-offset-1 book-box">
+                <img src="{{ book.image }}" alt="">
+                <div style="width: 155px;height: 166px;">
+                    <h4>{{ book.title }}</h4>
+                    <span>作者：{{ book.author }}</span>
+                    <div style="overflow:hidden">
+                        <span style="overflow: hidden;display: inline-block;width: 155px;height: 80px;text-overflow:ellipsis;">{{ book.summary }}</span>
+                    </div>
+                </div>
+            </div>
+            </a>
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

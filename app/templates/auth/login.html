@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block quote %}
+    <link rel="stylesheet" href="/static/3rd/css/auth.css">
+    <link rel="stylesheet" href="/static/3rd/layui-v2.4.5/layui/css/layui.css">
+    <script src="/static/3rd/js/sha1.min.js"></script>
+    <script src="/static/3rd/js/jquery-1.11.3.min.js"></script>
+    <script src="/static/3rd/layui-v2.4.5/layui/layui.js"></script>
+    <script src="/static/js/password_check.js"></script>
+{% endblock %}
+
+
+{% block nav_header %}
+{% endblock %}
+
+{% block nav_body %}
+{% endblock %}
+
+{% block body %}
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            {% if message %}
+                <div class='container'>
+                    <div class="row">
+                        <div style="width: 70%; margin-left: 15%; margin-top: 15px;" class="alert alert-warning text-center" role="alert">{{ message }}</div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+
+    {% if form and form.errors %}
+        {% for key, error in form.errors.items() %}
+            <div class='container'>
+                <div class="row">
+                    <div style="width: 70%; margin-left: 15%;" class="alert alert-danger text-center" role="alert">{{ error }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+<div class="login-main">
+    <header class="layui-elip">登录</header>
+    <form class="layui-form" method="post" action="{{ url_for('web.login') }}">
+        <div class="layui-input-inline">
+            <input type="text" name="email" required lay-verify="email" placeholder="邮箱" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="密码" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline login-btn">
+            <button lay-submit lay-filter="login" class="layui-btn">登录</button>
+        </div>
+        <hr/>
+        <p><a href="{{ url_for('web.register') }}" class="fl">立即注册</a><a href="{{ url_for('web.forget_password_request') }}" class="fr">忘记密码？</a></p>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+    <div style="position:fixed;bottom: 50px; width: 100%;text-align: center;">
+        <span class="text-muted">© 2019-2020 lebron.im created by wvalianty</span>
+    </div>
+{% endblock %}

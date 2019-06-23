@@ -1,0 +1,8 @@
+body {background-color: #F2F5F7}
+.detail-box {font-size: 15px;line-height: 20px;}
+div>span:nth-child(2) {float: right;}
+div>span:first-child {color:#8e8E8E;}
+.detail-box div {line-height: 35px;}
+a {font-size: large;color:#428bca;}
+.h1 {margin-bottom: 100px;margin-top: 100px;color:#009688;font-size:55px;}
+.content-box {margin-top: 150px; background:white; height: 700px;}

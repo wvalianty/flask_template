@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block quote %}
+    {{ super() }}
+    <script src="/static/js/ask_layer.js"></script>
+{% endblock %}
+
+{% block body %}
+
+    <style>
+        .intro>span {
+            display: block;
+            line-height: 27px;
+            margin-left: 200px;
+        }
+    </style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div style="margin-top: 50px;">
+                <img src="{{ book.image }}" alt="" style="float: left; height: 240px;width: 160px;">
+                <div class="intro">
+                    <h4 style="margin-left: 200px;">{{ book.title }}</h4>
+                    <span>作者：{{ book.author }}</span>
+                    <span>出版社：{{ book.publisher }}</span>
+                    <span>出版年：{{ book.pubdate }}</span>
+                    <span>页数：{{ book.pages }}</span>
+                    <span>定价：{{ book.price }}</span>
+                    <span>精装：{{ book.binding }}</span>
+                    <span>ISBN：{{ book.isbn }}</span>
+                    <span>{{ wishes.total |default(0, true) }}人想要/{{ gifts.total|default(0, true) }}人可赠送</span>
+                </div>
+                <div style="clear: both;margin-top: 20px; margin-bottom: 15px;">
+                    {% if has_in_gifts %}
+                        <p style="background: yellowgreen;width: 120px;text-align: center;margin-top: 10px;">已添加至赠送清单</p>
+                    {% elif has_in_wishes%}
+                        <p style="background: yellowgreen;width: 120px;text-align: center;margin-top: 10px;">已添加至心愿清单</p>
+                    {% else %}
+                        <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+                        <button data-method="notice" class="layui-btn" id="give">赠送此书</button>
+                        <button data-method="notice" class="layui-btn" id="want">加入到心愿清单</button>
+                        </div>
+                    {% endif %}
+                </div>
+                <div>
+                    <p>{{ book.summary }}</p>
+                </div>
+                <div>
+                    <span style="font-size: 18px;">向他们请求此书</span>
+                    <hr>
+                    {% for gift in gifts %}
+                        <span>{{ gift.user }}</span>
+                        <span>上传于{{ gift.create_datetime }}</span>
+                        <a href="/drift/{{ gift.id }}">向他(她)请求此书</a><br>
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+
+    $(function () {
+        $('#give').off().click(function () {
+            btn = ['确定赠送', '不，算了'];
+            request_url = "/gift/book/{{ book.isbn }}";
+            content = '<div><h5 style="text-align:center;color:#826762;">您确定拥有《{{ book.title }}》这本书吗？</h5><p style="text-aligin:center;">如果您不想赠送此书，或者没有这本书，请不要随意发布虚假信息。谢谢你的支持和理解。</p></div>';
+            ask_layer(btn, content, request_url);
+        });
+
+        $('#want').off().click(function () {
+            btn = ['确定想要', '不，算了'];
+            request_url = "/wish/book/{{ book.isbn }}";
+            content = '<div><h5 style="text-align:center;color:#826762;">您确定想要《{{ book.title }}》这本书吗？</h5><p style="text-aligin:center;">如果您不想阅读此书，或者对读书不敢兴趣，请不要随意发布虚假信息。谢谢你的支持和理解。</p></div>';
+            ask_layer(btn, content, request_url);
+
+        })
+    })
+
+
+
+
+    </script>
+{% endblock %}

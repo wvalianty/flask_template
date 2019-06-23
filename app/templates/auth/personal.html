@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block quote %}
+    <link rel="stylesheet" href="/static/3rd/css/auth.css">
+    <link rel="stylesheet" href="/static/3rd/layui-v2.4.5/layui/css/layui.css">
+    <script src="/static/3rd/js/sha1.min.js"></script>
+    <script src="/static/3rd/js/jquery-1.11.3.min.js"></script>
+    <script src="/static/3rd/layui-v2.4.5/layui/layui.js"></script>
+    <link rel="stylesheet" href="/static/css/personal.css">
+{% endblock %}
+
+{% block nav_header %}
+{% endblock %}
+
+{% block nav_body %}
+{% endblock %}
+
+
+{% block body %}
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            {% if message %}
+                <div class='container'>
+                    <div class="row">
+                        <div style="width: 70%; margin-left: 15%; margin-top: 15px;" class="alert alert-warning text-center" role="alert">{{ message }}</div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+
+
+    {% if form and form.errors %}
+        {% for key, error in form.errors.items() %}
+            <div class='container'>
+                <div class="row">
+                    <div style="width: 70%; margin-left: 15%;" class="alert alert-danger text-center" role="alert">{{ error }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 content-box">
+            <div class="row">
+                <div class="col-md-2" style="top:-25px; font-size: large; left: -10px;">
+                    <a onclick="window.history.go(-1)" href="#" style="text-decoration: none;">返回</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="h1 text-center">{{ current_user.nickname }}</div>
+                <div class="col-md-8 col-md-offset-2 detail-box">
+                    <div><span>送出/收到：</span><span>{{ current_user.send_counter }}/{{ current_user.receive_counter }}</span></div>
+                    <div><span>当前鱼豆：</span><span>{{ current_user.beans }}</span></div>
+                    <div><span>登录邮箱：</span><span>{{  current_user.email}}</span></div>
+                    <div><span>登录密码：*********</span><span><a href="{{ url_for('web.change_passwd') }}" style="text-decoration: none;">修改</a></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block footer %}
+    <div style="position:fixed;bottom: 50px; width: 100%;text-align: center;">
+        <span class="text-muted">© 2019-2020 lebron.im created by wvalianty</span>
+    </div>
+{% endblock %}

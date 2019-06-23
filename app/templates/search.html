@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div style="line-height: 50px;margin-top:20px;font-size:20px;">
+                <span>搜索 {{ q | default('',true)}}</span>
+                <span style="float: right">共 {{ total | default('',true)}} 条结果</span>
+            </div>
+            <hr>
+            <div class="row">
+            {% for book in books %}
+                <a href="/book/{{ book.isbn }}/detail" style="text-decoration: none;color:black;">
+                <div style="margin-top: 30px; width:85%;">
+                    <img src="{{ book.image }}" alt="" style="width: 92px;height: 135px;">
+                    <div style="float:right; width: 75%;margin-left:10%;">
+                        <h4>{{ book.title }}</h4>
+                        <span>{{ book.intro }}</span><br>
+                        <span style="display: inline-block; height: 60px;overflow: hidden; margin-top: 10px;">{{ book.summary }}</span>
+                    </div>
+                </div>
+                </a>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

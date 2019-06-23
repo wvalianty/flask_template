@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block quote %}
+    <link rel="stylesheet" href="/static/3rd/css/auth.css">
+    <link rel="stylesheet" href="/static/3rd/layui-v2.4.5/layui/css/layui.css">
+    <script src="/static/3rd/js/sha1.min.js"></script>
+    <script src="/static/3rd/js/jquery-1.11.3.min.js"></script>
+    <script src="/static/3rd/layui-v2.4.5/layui/layui.js"></script>
+{% endblock %}
+
+{% block nav_header %}
+{% endblock %}
+
+{% block nav_body %}
+{% endblock %}
+
+
+{% block body %}
+    <style>
+        body{background: #F2F5F7;}
+        .personal-box {
+            background: white;
+            width: 500px;
+            height: 700px;
+            text-align: center;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .personal-box>a {
+            position:absolute;
+            left: 0;
+            line-height: 40px;
+            top: -30px;
+            color:lightblue;
+            font-size: large;
+        }
+        dd>a {
+            color:#5DBBE6;
+            font-size: large;
+        }
+        .personal-content {
+            line-height: 30px;
+            width: 500px;
+            height: 400px;
+            text-align: center;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        dd,dl {
+            line-height: 30px;
+        }
+    </style>
+
+    <div class="personal-box">
+    <a href="#" onclick="window.history.go(-1)">返回</a>
+        <div class="personal-content">
+            <h1 style="margin-bottom: 60px;color:#8BACA1;"> username </h1>
+            <dl class="dl-horizontal" style="color:#8e8E8E">
+                <dt>送出/收到：</dt><dd>1/1</dd>
+                <dt>当前鱼豆：</dt><dd>2.2</dd>
+                <dt>登录邮箱：</dt><dd>abc1@xiaohuazhu.com</dd>
+                <dt>登录密码：******</dt><dd><a href="">修改</a></dd>
+            </dl>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+    <div style="position:fixed;bottom: 50px; width: 100%;text-align: center;">
+        <span class="text-muted">© 2019-2020 lebron.im created by wvalianty</span>
+    </div>
+{% endblock %}

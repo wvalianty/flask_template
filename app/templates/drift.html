@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block quote %}
+    <link rel="stylesheet" href="/static/3rd/css/auth.css">
+    <link rel="stylesheet" href="/static/3rd/layui-v2.4.5/layui/css/layui.css">
+    <script src="/static/3rd/js/jquery-1.11.3.min.js"></script>
+    <script src="/static/3rd/layui-v2.4.5/layui/layui.js"></script>
+{% endblock %}
+
+
+{% block nav_header %}
+{% endblock %}
+
+{% block nav_body %}
+{% endblock %}
+
+{% block body %}
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            {% if message %}
+                <div class='container'>
+                    <div class="row">
+                        <div style="width: 70%; margin-left: 15%; margin-top: 15px;" class="alert alert-warning text-center" role="alert">{{ message }}</div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+
+    {% if form and form.errors %}
+        {% for key, error in form.errors.items() %}
+            <div class='container'>
+                <div class="row">
+                    <div style="width: 70%; margin-left: 15%;" class="alert alert-danger text-center" role="alert">{{ error }}</div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <style>
+        body {
+            background: #f2f5f7;
+        }
+        .msg-box {
+            background: white;
+            margin-top:80px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2 msg-box">
+                <a style="position:absolute;top:-22px;" onclick="window.history.go(-1)" href="#">返回</a>
+                <div class="row">
+                    <div class="h1 text-center col-xs-12" style="background: #8BACA1;margin: 0;line-height: 70px;">向{{ gifter.nickname }}请求这本书</div>
+                </div>
+                <div class="row">
+                    <div style="background: #f2f5f7; margin-top: 20px;" class="col-xs-10 col-xs-offset-1">
+                        <div style="margin:20px;">
+                            <p>以下是书籍拥有者信息，诚信度供你参考:</p>
+                            <p><span>{{ gifter.nickname }}</span></p>
+                            <p>
+                                <span>鱼豆：{{ gifter.beans }}</span><br>
+                                <span>接受/送出书籍：{{ gifter.receive_counter }}/{{ gifter.send_counter }}</span>
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 text-center" style="margin: 10px;">
+                            <p>本次交易将消耗你{{ beans_ask_one_book }}个鱼豆，你当前还有{{ current_user.beans }}个鱼豆</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1" style="margin-top: 10px;margin-bottom: 20px;">
+                        <form class="layui-form" method="post" action="" style="margin-bottom: 20px;">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">收件人姓名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="recipient_name" lay-verify="required" autocomplete="off" placeholder="请填写收件人姓名" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">联系电话</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="mobile" lay-verify="phone" autocomplete="off" placeholder="如18513169404" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">书籍收件地址</label>
+                                <div class="layui-input-block">
+                                    <textarea name="address" placeholder="如，张三 北京市清华大学666室。请务必确保该地址能够收到书籍" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">对他 / 她 说的话</label>
+                                <div class="layui-input-block">
+                                    <textarea name="message" placeholder="如有一些特别的要求，可以在这里填写" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                  <button class="layui-btn" lay-submit="" lay-filter="upload">立即提交</button>
+                                </div>
+                            </div>
+                            <p class="text-center"><small>提交信息，等待{{ a }}将书籍邮寄给你</small></p>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function send_data(data){
+        layer.msg("成功！");
+    }
+
+    layui.use(['form'], function(){
+        var form = layui.form;
+        form.on('submit(upload)', function(data){
+            url = "/drift/{{ gifter.gid }}";
+            method = "post";
+            ajax_form_submit(url, method, send_data, data.field);
+            return false;
+        });
+    })
+    </script>
+
+
+{% endblock %}
+
+{% block footer %}
+    <div style="position:fixed;bottom: 50px; width: 100%;text-align: center;">
+        <span class="text-muted">© 2019-2020 lebron.im created by wvalianty</span>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block quote %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/3rd/layui-v2.4.5/layui/css/layui.css">
+{% endblock %}
+
+{% block body %}
+
+    <div class="text-center" id="page" style="margin-top: 50px;"></div>
+    <script>
+    layui.use(['laypage', 'layer'], function(){
+      var laypage = layui.laypage,layer = layui.layer;
+        laypage.render({
+            elem: 'page',
+            count: {{ count }},
+            limit: {{ per_page }},
+            theme: '#14853A'
+      });});
+    </script>
+{% endblock %}

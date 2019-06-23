@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+    <style>
+        .intro>span {
+            display: block;
+        }
+        .intro>a{
+            display: block;
+        }
+    </style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-7 col-xs-offset-1">
+            <h4 style="text-align: left">我想赠送的书籍共 {{ total }} 本</h4>
+            <hr>
+            {% for book in  books %}
+                <div style="margin-top: 20px;">
+                <a href="/book/{{ book.isbn }}/detail">
+                    <img style="height: 135px;width: 92px; float: left" src="{{ book.image }}" alt=""></a>
+                    <div class="intro" style="display: inline-block;margin-left: 50px;">
+                        <h4>{{ book.title }}</h4>
+                        <span>{{ book.author }}</span>
+                        <span>{{ book.publisher }}</span>
+                        <span>{{ book.price }}元</span>
+                        <span>{{ book.isbn }}</span>
+                        <a href="/gifts/{{ book.gid }}/redraw">撤销</a>
+                    </div>
+                    <a href="/book/{{ book.isbn }}/detail" style="float: right;background: green;border-radius: 5px; background: green; border-radius: 5px; width: 70px; line-height: 25px; color: black; text-align: center; text-decoration: none;">{{ book.count_wishes }}人想要</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
